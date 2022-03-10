@@ -1,0 +1,15 @@
+<resources>
+  <string name="app_name">Lets Hike</string>
+  <string name="login">LOGIN</string>
+  <string name="phone_number">Phone Number</string>
+  <string name="_phone_number">Phone number</string>
+  <string name="password">Password</string>
+  <string name="enter_password">Enter Password</string>
+  <string name="names_input">names_input</string>
+  <string name="lastname">Lastname</string>
+  <string name="firstname">Firstname</string>
+  <string name="error_message">Fill Up The Form</string>
+  <string name="names_input2">Names Input</string>
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
