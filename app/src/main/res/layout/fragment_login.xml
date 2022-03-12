@@ -5,7 +5,7 @@
     android:id="@+id/login_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login_and_register.LoginFragment"
+    tools:context=".ui.login_and_register.login.LoginFragment"
     >
 
   <LinearLayout

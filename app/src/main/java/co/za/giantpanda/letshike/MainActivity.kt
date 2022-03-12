@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import co.za.giantpanda.letshike.R.id
-import co.za.giantpanda.letshike.ui.login_and_register.LoginFragment
+import co.za.giantpanda.letshike.ui.login_and_register.login.LoginFragment
 
 class MainActivity : AppCompatActivity() {
 

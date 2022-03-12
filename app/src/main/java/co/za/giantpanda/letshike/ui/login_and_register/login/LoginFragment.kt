@@ -1,4 +1,4 @@
-package co.za.giantpanda.letshike.ui.login_and_register
+package co.za.giantpanda.letshike.ui.login_and_register.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import co.za.giantpanda.letshike.R
 import co.za.giantpanda.letshike.R.layout
 import co.za.giantpanda.letshike.R.string
+import co.za.giantpanda.letshike.ui.login_and_register.register.RegisterFragment
 
 class LoginFragment : Fragment() {
 

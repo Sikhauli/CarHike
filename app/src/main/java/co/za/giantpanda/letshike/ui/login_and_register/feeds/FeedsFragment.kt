@@ -1,4 +1,4 @@
-package co.za.giantpanda.letshike.ui
+package co.za.giantpanda.letshike.ui.login_and_register.feeds
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -20,11 +20,11 @@ import androidx.room.PrimaryKey
     @ColumnInfo(name = "user_name")
     var userName: String,
 
-  @ColumnInfo(name = "phone_number")
-  var cellPhone: Phone,
+    @ColumnInfo(name = "phone_number")
+    var cellPhone: Phone,
 
-    @ColumnInfo(name = "password_text")
-    var passwrd: String
+    @ColumnInfo(name = "password_user")
+    var password: String
+
   )
-
 
