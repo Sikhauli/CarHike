@@ -11,6 +11,9 @@ import co.za.giantpanda.letshike.MainActivity
 import co.za.giantpanda.letshike.R
 import co.za.giantpanda.letshike.R.string
 import co.za.giantpanda.letshike.db.entity.RegisterEntity
+import co.za.giantpanda.letshike.mvvm.factory.AuthViewModelFactory
+import co.za.giantpanda.letshike.mvvm.repository.RegisterRepository
+import co.za.giantpanda.letshike.mvvm.model.AuthModel
 import co.za.giantpanda.letshike.ui.login_and_register.feeds.FeedsFragment
 import co.za.giantpanda.letshike.ui.login_and_register.login.LoginFragment
 
@@ -18,6 +21,7 @@ open class RegisterFragment : Fragment() {
 
   private var mainActivity: MainActivity? = null
   private val register: RegisterEntity? = null
+  private var authModel: AuthModel? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -27,6 +31,9 @@ open class RegisterFragment : Fragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
+
+    val registerRepository = RegisterRepository(requireContext())
+    authModel = AuthViewModelFactory(registerRepository).create(AuthModel::class.java)
 
     return inflater.inflate(R.layout.fragment_register, container, false)
   }
@@ -47,13 +54,16 @@ open class RegisterFragment : Fragment() {
 
 
     userRegisterButton.setOnClickListener {
-
-      register?.cellPhone = phoneNUmber.text.toString()
+     /* register?.cellPhone = phoneNUmber.text.toString()*/
       register?.password = registerPassword.text.toString()
       register?.userName = nickName.text.toString()
       register?.firstName = name.text.toString()
       register?.lastName = surname.text.toString()
-
+      authModel?.insertUserDetail(register)
+      registerPassword.setText("")
+      nickName.setText("")
+      name.setText("")
+      surname.setText("")
 
 
       val contact: String = phoneNUmber.text.toString()
@@ -69,7 +79,7 @@ open class RegisterFragment : Fragment() {
           mainActivity?.replaceFragment(FeedsFragment())
         }
       }
-       else if (contact.isEmpty()) {
+      else if (contact.isEmpty()) {
         phoneNUmber.error = getString(string.error_message)
       } else if (password.isEmpty()) {
         registerPassword.error = getString(string.error_message)
@@ -84,10 +94,14 @@ open class RegisterFragment : Fragment() {
       }
     }
     userLoginButton.setOnClickListener() {
-        mainActivity?.replaceFragment(LoginFragment())
-      }
-
+      mainActivity?.replaceFragment(LoginFragment())
     }
+//
+//    authViewModel?.fetchChats()
+//    authViewModel?.messageLiveData?.observe(viewLifecycleOwner) {
+//        chats -> messageAdapter.addItems(chats) }
+
+  }
 
 }
 
