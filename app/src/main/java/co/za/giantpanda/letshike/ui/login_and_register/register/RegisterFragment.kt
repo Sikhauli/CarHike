@@ -23,9 +23,6 @@ open class RegisterFragment : Fragment() {
   private val register: RegisterEntity? = null
   private var authModel: AuthModel? = null
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-  }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +51,6 @@ open class RegisterFragment : Fragment() {
 
 
     userRegisterButton.setOnClickListener {
-     /* register?.cellPhone = phoneNUmber.text.toString()*/
       register?.password = registerPassword.text.toString()
       register?.userName = nickName.text.toString()
       register?.firstName = name.text.toString()
@@ -76,7 +72,7 @@ open class RegisterFragment : Fragment() {
 
       if (name3.isNotEmpty() and contact.isNotEmpty() and password.isNotEmpty() and passwordConfirm.isNotEmpty() and name1.isNotEmpty() and name2.isNotEmpty()) {
         if (password == passwordConfirm && contact.length == 10) {
-          mainActivity?.replaceFragment(FeedsFragment())
+          mainActivity?.addFragment(FeedsFragment())
         }
       }
       else if (contact.isEmpty()) {
@@ -93,13 +89,9 @@ open class RegisterFragment : Fragment() {
         surname.error = getString(string.error_message)
       }
     }
-    userLoginButton.setOnClickListener() {
+    userLoginButton.setOnClickListener{
       mainActivity?.replaceFragment(LoginFragment())
     }
-//
-//    authViewModel?.fetchChats()
-//    authViewModel?.messageLiveData?.observe(viewLifecycleOwner) {
-//        chats -> messageAdapter.addItems(chats) }
 
   }
 

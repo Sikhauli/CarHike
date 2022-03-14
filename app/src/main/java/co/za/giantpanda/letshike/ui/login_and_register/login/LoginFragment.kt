@@ -6,14 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
+import co.za.giantpanda.letshike.MainActivity
 import co.za.giantpanda.letshike.R
 import co.za.giantpanda.letshike.R.layout
 import co.za.giantpanda.letshike.R.string
+import co.za.giantpanda.letshike.mvvm.model.AuthModel
+import co.za.giantpanda.letshike.ui.login_and_register.feeds.FeedsFragment
 import co.za.giantpanda.letshike.ui.login_and_register.register.RegisterFragment
 
 class LoginFragment : Fragment() {
+
+  private var mainActivity : MainActivity? = null
+  private var authModel : AuthModel? = null
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -25,36 +31,34 @@ class LoginFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    val registerButton = view.findViewById<TextView>(R.id.register_textView)
+    val toRegisterButton = view.findViewById<TextView>(R.id.register_textView)
     val login = view.findViewById<TextView>(R.id.login_button)
 
     val phoneNUmberEdit = view.findViewById<EditText>(R.id.login_phone_number_editText)
     val loginPasswordEdit = view.findViewById<EditText>(R.id.login_password_editText)
 
-
-
     login.setOnClickListener {
-      var username: String = phoneNUmberEdit.text.toString()
-      var loginPassword: String = loginPasswordEdit.text.toString()
+      val phoneNumber: String = phoneNUmberEdit.text.toString()
+      val loginPassword: String = loginPasswordEdit.text.toString()
 
-      if (username.isNotEmpty() and loginPassword.isNotEmpty()) {
-       // if (username ==  and loginPassword ==  )
+      if (phoneNumber.isNotEmpty() and loginPassword.isNotEmpty()) {
+          if (phoneNumber == authModel?.fetchPhoneNumber()?.toString() && loginPassword == authModel?.fetchUserPassword()?.toString()){
+            mainActivity?.replaceFragment(FeedsFragment())
+          }
+          else{
+            Toast.makeText(mainActivity?.applicationContext,"Incorrect Login Info",Toast.LENGTH_SHORT).show()
+          }
 
-
-
-      } else if(username.isEmpty() ) {
+        } else if(phoneNumber.isEmpty() ) {
         phoneNUmberEdit.error = getString(string.error_message)
-      } else if (loginPassword.isEmpty() ) {
+        } else if (loginPassword.isEmpty() ) {
         loginPasswordEdit.error = getString(string.error_message)
-    }
+      }
     }
 
+    toRegisterButton.setOnClickListener {
+      mainActivity?.addFragment(RegisterFragment())
 
-    registerButton.setOnClickListener() {
-      val t: FragmentTransaction = this.requireFragmentManager().beginTransaction()
-      val mFrag: Fragment = RegisterFragment()
-      t.replace(R.id.fragmentContainer, mFrag)
-      t.commit()
     }
   }
-  }
+}

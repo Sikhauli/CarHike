@@ -13,6 +13,9 @@ public interface AppDao {
   @Query("SELECT phone_number FROM Register_users_table")
   LiveData<List<RegisterEntity>> fetchPhoneNUmber();
 
+  @Query("SELECT password_user FROM Register_users_table")
+  LiveData<List<RegisterEntity>> fetchUserPassword();
+
   @Insert
   void insertUserDetail(RegisterEntity registerEntity);
 }

@@ -23,7 +23,6 @@ import androidx.room.PrimaryKey
 
     @ColumnInfo(name = "phone_number")
     var cellPhone: Phone,
-    //var email: Email,
 
     @ColumnInfo(name = "password_user")
     var password: String

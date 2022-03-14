@@ -17,8 +17,12 @@ class AuthModel(registerRepository: RegisterRepository?) : ViewModel() {
     executor.execute { registerRepository?.sendUserDetail(registerEntity) }
   }
 
-  fun fetchChats() {
+  fun fetchPhoneNumber() {
     messageLiveData = registerRepository?.fetchPhoneNUmber()
+  }
+
+  fun fetchUserPassword() {
+    messageLiveData = registerRepository?.fetchUserPassword()
   }
 
 }

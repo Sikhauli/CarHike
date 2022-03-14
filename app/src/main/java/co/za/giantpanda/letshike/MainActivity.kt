@@ -17,18 +17,14 @@ class MainActivity : AppCompatActivity() {
 
   }
 
-  private fun addFragment(fragment: Fragment?) {
+  fun addFragment(fragment: Fragment?) {
     val fragmentTransaction = supportFragmentManager.beginTransaction()
-    fragmentTransaction.add(id.fragmentContainer, fragment!!)
-      .addToBackStack(fragmentTransaction.javaClass.name)
-      .commit()
+    fragmentTransaction.add(id.fragmentContainer, fragment!!).addToBackStack(fragmentTransaction.javaClass.name).commit()
   }
 
   fun replaceFragment(fragment: Fragment?) {
     val fragmentTransaction = supportFragmentManager.beginTransaction()
-    fragmentTransaction.add(id.fragmentContainer, fragment!!)
-      .addToBackStack(fragmentTransaction.javaClass.name)
-      .commit()
+    fragmentTransaction.add(id.fragmentContainer, fragment!!).addToBackStack(fragmentTransaction.javaClass.name).commit()
   }
 
 

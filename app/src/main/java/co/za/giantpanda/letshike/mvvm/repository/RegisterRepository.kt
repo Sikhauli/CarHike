@@ -21,4 +21,9 @@ class RegisterRepository(requireContext: Context) {
   fun fetchPhoneNUmber(): LiveData<List<RegisterEntity?>?>? {
     return appDao?.fetchPhoneNUmber()
   }
+  fun fetchUserPassword(): LiveData<List<RegisterEntity?>?>? {
+    return appDao?.fetchUserPassword()
+  }
+
+
 }
