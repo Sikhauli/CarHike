@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import co.za.giantpanda.letshike.MainActivity
 import co.za.giantpanda.letshike.R
@@ -18,7 +17,6 @@ import co.za.giantpanda.letshike.ui.login_and_register.register.RegisterFragment
 
 class LoginFragment : Fragment() {
 
-  private var mainActivity : MainActivity? = null
   private var authModel : AuthModel? = null
 
   override fun onCreateView(
@@ -41,14 +39,19 @@ class LoginFragment : Fragment() {
       val phoneNumber: String = phoneNUmberEdit.text.toString()
       val loginPassword: String = loginPasswordEdit.text.toString()
 
-      if (phoneNumber.isNotEmpty() and loginPassword.isNotEmpty()) {
-          if (phoneNumber == authModel?.fetchPhoneNumber()?.toString() && loginPassword == authModel?.fetchUserPassword()?.toString()){
-            mainActivity?.replaceFragment(FeedsFragment())
-          }
-          else{
-            Toast.makeText(mainActivity?.applicationContext,"Incorrect Login Info",Toast.LENGTH_SHORT).show()
+      if (phoneNumber.isNotEmpty() && loginPassword.isNotEmpty()) {
+
+        if (phoneNumber == authModel?.fetchPhoneNumber()?.toString() && loginPassword == authModel?.fetchUserPassword()?.toString()){
+
+            val fr = parentFragmentManager.beginTransaction()
+            fr.replace(R.id.fragmentContainer, FeedsFragment())
+            fr.commit()
           }
 
+         else{
+            phoneNUmberEdit.error = string.error_number.toString()
+            loginPasswordEdit.error = string.error_password.toString()
+         }
         } else if(phoneNumber.isEmpty() ) {
         phoneNUmberEdit.error = getString(string.error_message)
         } else if (loginPassword.isEmpty() ) {
@@ -56,9 +59,13 @@ class LoginFragment : Fragment() {
       }
     }
 
-    toRegisterButton.setOnClickListener {
-      mainActivity?.addFragment(RegisterFragment())
 
+      toRegisterButton.setOnClickListener {
+        val fr = parentFragmentManager.beginTransaction()
+        fr.replace(R.id.fragmentContainer, RegisterFragment())
+        fr.commit()
     }
   }
 }
+
+

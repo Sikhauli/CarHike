@@ -2,13 +2,22 @@
   <string name="app_name">Lets Hike</string>
   <string name="login">LOGIN</string>
   <string name="phone_number">Phone Number</string>
-  <string name="_phone_number">Phone number</string>
   <string name="password">Password</string>
+  <string name="phone_number_error"> Phone Number Not Valid </string>
   <string name="error_message">Fill Up The Form</string>
   <string name="enter_password">Enter Password</string>
+  <string name="error_password">Sorry, Password Error</string>
+  <string name="error_number">Sorry, Number Error</string>
   <string name="names_input">names_input</string>
   <string name="lastname">Lastname</string>
   <string name="firstname">Firstname</string>
   <string name="names_input2">Names Input</string>
   <string name="hello_blank_fragment">Nothing to see in this Fragment</string>
+  <string name="register">Register</string>
+  <string name="sign_up">Sign Up</string>
+  <string name="username">Username</string>
+  <string name="confirm_password">Confirm Password</string>
+  <string name="enter_username">Enter Username</string>
+  <string name="already_have_account_sign_in_here">Already have account? Sign in</string>
+  <string name="todo">TODO</string>
 </resources>

@@ -1,25 +1,24 @@
 package co.za.giantpanda.letshike.ui.login_and_register.register
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import co.za.giantpanda.letshike.MainActivity
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import co.za.giantpanda.letshike.R
 import co.za.giantpanda.letshike.R.string
 import co.za.giantpanda.letshike.db.entity.RegisterEntity
 import co.za.giantpanda.letshike.mvvm.factory.AuthViewModelFactory
-import co.za.giantpanda.letshike.mvvm.repository.RegisterRepository
 import co.za.giantpanda.letshike.mvvm.model.AuthModel
+import co.za.giantpanda.letshike.mvvm.repository.RegisterRepository
 import co.za.giantpanda.letshike.ui.login_and_register.feeds.FeedsFragment
 import co.za.giantpanda.letshike.ui.login_and_register.login.LoginFragment
 
 open class RegisterFragment : Fragment() {
 
-  private var mainActivity: MainActivity? = null
   private val register: RegisterEntity? = null
   private var authModel: AuthModel? = null
 
@@ -29,7 +28,7 @@ open class RegisterFragment : Fragment() {
     savedInstanceState: Bundle?
   ): View? {
 
-    val registerRepository = RegisterRepository(requireContext())
+    val registerRepository = RegisterRepository()
     authModel = AuthViewModelFactory(registerRepository).create(AuthModel::class.java)
 
     return inflater.inflate(R.layout.fragment_register, container, false)
@@ -51,49 +50,53 @@ open class RegisterFragment : Fragment() {
 
 
     userRegisterButton.setOnClickListener {
-      register?.password = registerPassword.text.toString()
-      register?.userName = nickName.text.toString()
-      register?.firstName = name.text.toString()
-      register?.lastName = surname.text.toString()
-      authModel?.insertUserDetail(register)
-      registerPassword.setText("")
-      nickName.setText("")
-      name.setText("")
-      surname.setText("")
 
+      if (phoneNUmber.length() != 10 || registerPassword.length() < 5 || registerPasswordConfirm.length() < 5
+          || nickName.length() < 2 || name.length() < 1 || surname.length() < 1 ) {
 
-      val contact: String = phoneNUmber.text.toString()
-      val password: String = registerPassword.text.toString()
-      val passwordConfirm: String = registerPasswordConfirm.text.toString()
-      val name1: String = nickName.text.toString()
-      val name2: String = name.text.toString()
-      val name3: String = surname.text.toString()
-
-
-      if (name3.isNotEmpty() and contact.isNotEmpty() and password.isNotEmpty() and passwordConfirm.isNotEmpty() and name1.isNotEmpty() and name2.isNotEmpty()) {
-        if (password == passwordConfirm && contact.length == 10) {
-          mainActivity?.addFragment(FeedsFragment())
-        }
-      }
-      else if (contact.isEmpty()) {
-        phoneNUmber.error = getString(string.error_message)
-      } else if (password.isEmpty()) {
+        phoneNUmber.error = getString(string.phone_number_error)
         registerPassword.error = getString(string.error_message)
-      } else if (passwordConfirm.isEmpty()) {
         registerPasswordConfirm.error = getString(string.error_message)
-      } else if (name3.isEmpty()) {
         nickName.error = getString(string.error_message)
-      } else if (name1.isEmpty()) {
         name.error = getString(string.error_message)
-      } else if (name2.isEmpty()) {
         surname.error = getString(string.error_message)
       }
-    }
+
+        else {
+        Toast.makeText(requireContext(),"else here", Toast.LENGTH_LONG).show()
+
+        if(registerPassword.text.toString() == registerPasswordConfirm.text.toString()){
+
+            Toast.makeText(requireContext(),"Password Pass", Toast.LENGTH_LONG).show()
+
+            register?.confirmPassword = registerPasswordConfirm.text.toString()
+            register?.cellPhone = phoneNUmber.text.toString().toInt()
+            register?.password = registerPassword.text.toString()
+            register?.userName = nickName.text.toString()
+            register?.firstName = name.text.toString()
+            register?.lastName = surname.text.toString()
+            authModel?.insertUserDetail(register)
+            registerPassword.setText("")
+            nickName.setText("")
+            name.setText("")
+            surname.setText("")
+            phoneNUmber.setText("")
+            Toast.makeText(requireContext(),"Saved to DB", Toast.LENGTH_LONG).show()
+
+            val fr = parentFragmentManager.beginTransaction()
+            fr.replace(R.id.fragmentContainer, FeedsFragment())
+            fr.commit()
+
+
+          }
+        }
+      }
     userLoginButton.setOnClickListener{
-      mainActivity?.replaceFragment(LoginFragment())
+      Toast.makeText(requireContext(),"button to LoginFragment", Toast.LENGTH_LONG).show()
+
+      val fr = parentFragmentManager.beginTransaction()
+      fr.replace(R.id.fragmentContainer, LoginFragment())
+      fr.commit()
     }
-
   }
-
 }
-
